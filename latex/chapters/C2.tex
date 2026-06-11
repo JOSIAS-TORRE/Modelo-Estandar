@@ -1,0 +1,91 @@
+\chapter{Las reglas de Feymnan }\label{cap.2}
+\markboth{Teoría débil y modelo estándar}{Teoría débil y modelo estándar}
+% Colocar el resumen del capítulo
+
+\section{Las reglas de Feymnan para una teoría de juguete} \renewcommand{\thefootnote}{\arabic{footnote}} % numeración por símbolos
+\lhead[\thepage]{\thesection. Las reglas de Feymnan para una teoría de juguete}
+
+En la Sección 6.2 aprendimos cómo calcular tasas de desintegración y secciones transversales de dispersión, en términos de la amplitud \( \mathcal{M} \) para el proceso en cuestión. Ahora te mostraré cómo determinar \( \mathcal{M} \) misma, usando las "reglas de Feynman" para evaluar los diagramas relevantes. Podríamos ir directamente a un sistema de la "vida real", como la electrodinámica cuántica, con electrones y fotones interactuando a través del vértice primitivo:
+
+\tikzfeynmanset{compat=1.1.0}
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{feynman}
+        % Vértices
+        \vertex (a) {\(e\)};
+        \vertex [below=2cm of a] (b) {\(e\)};
+        \vertex [right=2cm of a] (f1);
+        \vertex [right=2cm of b] (f2);
+        \vertex [right=1.5cm of $(a)!0.5!(b)$] (c);
+
+        % Líneas
+        \diagram* {
+          (a) -- [fermion] (c) -- [fermion] (b),
+          (c) -- [photon] (f1) [particle=\(\gamma\)],
+        };
+      \end{feynman}
+    \end{tikzpicture}
+    \caption{Diagrama de Feynman para la emisión de un fotón por un electrón.}
+    \label{fig:emision_foton}
+\end{figure}
+
+
+Esta es la aplicación original, la más importante y la mejor entendida de la técnica de Feynman. 
+Desafortunadamente, involucra complicaciones adicionales (debido al hecho de que el electrón tiene espín 
+$\tfrac{1}{2}$ y el fotón espín $1$) que no tienen nada que ver con el cálculo de Feynman en sí. 
+En el Capítulo 7 mostraré cómo manejar partículas con espín, pero por el momento no quiero confundir 
+el tema, así que voy a introducir una ``teoría de juguete'', que no pretende representar el mundo real, 
+sino que servirá para ilustrar el \textit{método}, con un mínimo de equipaje innecesario.
+
+\bigskip
+
+Imaginemos un mundo en el que solo existen tres tipos de partículas —llamémoslas $A, B, C$— con masas 
+$m_A, m_B, m_C$. Todas tienen espín $0$ y cada una es su propia antipartícula. Existe un único vértice 
+primitivo mediante el cual las tres partículas interactúan:
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{feynman}
+        % Vértices
+        \vertex (a) at (210:2) {\(A\)};
+        \vertex (b) at (0:2) {\(B\)};
+        \vertex (c) at (120:2) {\(C\)};
+        \vertex (v) at (0,0);
+
+        % Líneas
+        \diagram* {
+          (a) -- (v) -- (b),
+          (c) -- (v),
+        };
+      \end{feynman}
+    \end{tikzpicture}
+    \caption{Vértice primitivo de interacción entre las partículas $A$, $B$ y $C$.}
+\end{figure}
+
+Supongamos que $A$ es la más pesada de las tres, y de hecho tiene más masa que 
+$B$ y $C$ combinadas, de modo que puede decaer en $B + C$. 
+El diagrama de más bajo orden que describe esta desintegración es:
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+      \begin{feynman}
+        % Vértices
+        \vertex (a) at (270:2) {\(A\)};
+        \vertex (b) at (150:2) {\(B\)};
+        \vertex (c) at (30:2) {\(C\)};
+        \vertex (v) at (0,0);
+
+        % Líneas
+        \diagram* {
+          (a) -- (v) -- (b),
+          (v) -- (c),
+        };
+      \end{feynman}
+    \end{tikzpicture}
+    \caption{Desintegración de la partícula $A$ en $B$ y $C$ al orden más bajo.}
+\end{figure}
+
+
